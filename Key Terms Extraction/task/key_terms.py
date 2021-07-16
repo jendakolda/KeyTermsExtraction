@@ -19,14 +19,14 @@ class KeyTermsExtractor:
         xmlfile = open(self.file, "r").read()
         soup = BeautifulSoup(xmlfile, 'xml')
         all_values = soup.find_all('value')
-        for item in all_values:
-            if item.get('name') == 'head':
-                print(item.get_text() + ':')
-            elif item.get('name') == 'text':
-                five_word_tokens = FreqDist(word_tokenize(item.get_text().lower())).most_common(5)
-                five_words = [five_word_tokens[i][0] for i, v in enumerate(five_word_tokens)]
-                print(*five_words, '\n')
-                # print(*word_tokens[:5], '\n')
+        for tag in all_values:
+            if tag.get('name') == 'head':
+                print(tag.get_text() + ':')
+            elif tag.get('name') == 'text':
+                # orders all the lowercase tokens from most to least common
+                freq_tokens = sorted(FreqDist(word_tokenize(tag.get_text().lower())).most_common(), reverse=True)
+                sorted_tokens = {k: v for k, v in sorted(dict(freq_tokens).items(), key=lambda item: item[1], reverse=True)[:5]}
+                print(*[k for k in sorted_tokens.keys()], '\n')
 
 
 if __name__ == '__main__':
