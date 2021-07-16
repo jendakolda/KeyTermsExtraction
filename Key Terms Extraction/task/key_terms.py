@@ -2,7 +2,7 @@
 # import lxml
 
 from bs4 import BeautifulSoup
-from nltk import FreqDist
+from collections import Counter
 from nltk.tokenize import word_tokenize
 
 
@@ -23,10 +23,10 @@ class KeyTermsExtractor:
             if tag.get('name') == 'head':
                 print(tag.get_text() + ':')
             elif tag.get('name') == 'text':
-                # orders all the lowercase tokens from most to least common
-                freq_tokens = sorted(FreqDist(word_tokenize(tag.get_text().lower())).most_common(), reverse=True)
-                sorted_tokens = {k: v for k, v in sorted(dict(freq_tokens).items(), key=lambda item: item[1], reverse=True)[:5]}
-                print(*[k for k in sorted_tokens.keys()], '\n')
+                word_list = word_tokenize(tag.get_text().lower())
+                counted_dict = Counter(sorted(word_list, reverse=True))
+                print(*[x[0] for x in counted_dict.most_common(5)])
+
 
 
 if __name__ == '__main__':
