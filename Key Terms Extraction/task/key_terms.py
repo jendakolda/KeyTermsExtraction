@@ -3,6 +3,7 @@ import string
 from collections import Counter
 
 from bs4 import BeautifulSoup
+from nltk import pos_tag
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -22,10 +23,16 @@ class KeyTermsExtractor:
     def clean_list(self, words: list):
         return [word for word in words if (word not in self.sw) and (word not in self.punctuation)]
 
+    def pos_sort(self, words):
+        return [word for word in words if pos_tag([word])[0][1] == 'NN']
+        # tags = dict(pos_tag(words))
+        # return [k for k, v in tags.items() if v == 'NN']
+
     def tokenizer(self, text, n_most_freq=5):
         word_list = word_tokenize(text.lower())
         word_list = self.lemmatizer(word_list)
         word_list = self.clean_list(word_list)
+        word_list = self.pos_sort(word_list)
         counted_dict = Counter(sorted(word_list, reverse=True))
         return [x[0] for x in counted_dict.most_common(n_most_freq)]
 
