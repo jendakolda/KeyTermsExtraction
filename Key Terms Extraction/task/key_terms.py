@@ -42,17 +42,20 @@ class KeyTermsExtractor:
 
     @staticmethod
     def create_tfidf_matrix(dataset):
-        vectorizer = TfidfVectorizer(input='file', use_idf=True, lowercase=True,
+        vectorizer = TfidfVectorizer(input='content', use_idf=True, lowercase=True,
                                      analyzer='word', ngram_range=(1, 1),
                                      stop_words=None)
-        return vectorizer.fit_transform([dataset])
+        vect = vectorizer.fit_transform(dataset)
+        names = vectorizer.get_feature_names()
+        print(names)
+        return vect, names
 
     def text_processor(self, text):
         word_list = word_tokenize(text.lower())  # Lists individual words
         word_list = self.lemmatizer(word_list)  # converts to a dictionary form of lemma
         word_list = self.clean_list(word_list)  # remove stop words and punctuation
         word_list = self.pos_sort(word_list)  # filters out only selected pos
-        KeyTermsExtractor.vocabulary.append(' '.join(word_list) + ', ')
+        KeyTermsExtractor.vocabulary.append(' '.join(word_list))
 
     @staticmethod
     def pick_best_scoring(words, n_most_frequent=5):
@@ -73,7 +76,10 @@ class KeyTermsExtractor:
         # if len(KeyTermsExtractor.headers) == len(KeyTermsExtractor.vocabulary):
         #     quit('non-matching lengths')
 
-        matrix = self.create_tfidf_matrix(KeyTermsExtractor.vocabulary)
+        matrix, feature_names = self.create_tfidf_matrix(KeyTermsExtractor.vocabulary)
+        #
+        print(matrix)
+        print(feature_names)
         for i, header in enumerate(KeyTermsExtractor.headers):
             print(header)
 
