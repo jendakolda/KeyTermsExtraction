@@ -47,7 +47,6 @@ class KeyTermsExtractor:
                                      stop_words=None)
         vect = vectorizer.fit_transform(dataset)
         names = vectorizer.get_feature_names()
-        print(names)
         return vect, names
 
     def text_processor(self, text):
@@ -61,6 +60,10 @@ class KeyTermsExtractor:
     def pick_best_scoring(words, n_most_frequent=5):
         counted_dict = Counter(sorted(words, reverse=True))
         return [x[0] for x in counted_dict.most_common(n_most_frequent)]
+
+    @staticmethod
+    def highest_indices(tfidf_vals, n=5):
+        return sorted(range(len(tfidf_vals)), key=lambda x: tfidf_vals[x])[-n:]
 
     def xml_parser(self):
         xmlfile = open(self.file, "r").read()
@@ -78,10 +81,13 @@ class KeyTermsExtractor:
 
         matrix, feature_names = self.create_tfidf_matrix(KeyTermsExtractor.vocabulary)
         #
-        print(matrix)
-        print(feature_names)
+
+        # print(feature_names)
         for i, header in enumerate(KeyTermsExtractor.headers):
             print(header)
+            five_highest = self.highest_indices(matrix.toarray()[i], 5)
+            for index in five_highest:
+                print(feature_names[index], end=', ')
 
 
 if __name__ == '__main__':
