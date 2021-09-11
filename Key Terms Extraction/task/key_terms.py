@@ -74,20 +74,15 @@ class KeyTermsExtractor:
                 KeyTermsExtractor.headers.append(tag.get_text() + ':')
             elif tag.get('name') == 'text':
                 self.text_processor(tag.get_text())
-                # print(*five_most_common, '\n')
-
-        # if len(KeyTermsExtractor.headers) == len(KeyTermsExtractor.vocabulary):
-        #     quit('non-matching lengths')
 
         matrix, feature_names = self.create_tfidf_matrix(KeyTermsExtractor.vocabulary)
-        #
 
-        # print(feature_names)
         for i, header in enumerate(KeyTermsExtractor.headers):
             print(header)
             five_highest = self.highest_indices(matrix.toarray()[i], 5)
             for index in five_highest:
-                print(feature_names[index], end=', ')
+                print(feature_names[index], end=' ')
+            print('\n')
 
 
 if __name__ == '__main__':

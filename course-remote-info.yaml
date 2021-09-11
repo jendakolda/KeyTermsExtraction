@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/496562/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Wed, 28 Jul 2021 18:55:45 UTC
+update_date: Sat, 11 Sep 2021 14:11:51 UTC
 stages:
 - id: 860
   step: 12369
@@ -16,7 +16,7 @@ stages:
   is_completed: true
 - id: 863
   step: 12372
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Overview of NLTK
@@ -57,12 +57,6 @@ topics:
     theory_id: 5913
   - title: Program with numbers
     theory_id: 5872
-  - title: Invoking a function
-    theory_id: 5891
-  - title: Declaring a function
-    theory_id: 5900
-  - title: Scopes
-    theory_id: 6322
   - title: If statement
     theory_id: 5953
   - title: Else statement
@@ -77,8 +71,6 @@ topics:
     theory_id: 6057
   - title: Packages
     theory_id: 6384
-  - title: Defaultdict and Counter
-    theory_id: 7989
   - title: Class
     theory_id: 6661
   - title: Class instances
@@ -133,22 +125,30 @@ topics:
     theory_id: 5979
   - title: Indexes
     theory_id: 6189
+  - title: Invoking a function
+    theory_id: 5891
+  - title: Declaring a function
+    theory_id: 5900
+  - title: Scopes
+    theory_id: 6322
+  - title: Basic string methods
+    theory_id: 6842
   - title: Boolean logic
     theory_id: 6025
   - title: Comparisons
     theory_id: 5920
-  - title: Dictionary
-    theory_id: 6481
   - title: Identity testing
     theory_id: 8077
-  - title: Basic string methods
-    theory_id: 6842
+  - title: Dictionary
+    theory_id: 6481
   - title: List comprehension
     theory_id: 6315
   - title: Nested lists
     theory_id: 6938
   - title: Split and join
     theory_id: 6972
+  - title: Defaultdict and Counter
+    theory_id: 7989
   1:
   - title: Text normalization
     theory_id: 10451
